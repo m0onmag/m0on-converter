@@ -1,6 +1,10 @@
 {
   "name": "m0on-converter",
   "version": "1.0.0",
+  "description": "M0ON Converter — конвертер голосовых команд из XML в JSON",
+  "author": "m0onmag",
+  "license": "UNLICENSED",
+  "private": true,
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -9,16 +13,21 @@
   "build": {
     "appId": "com.m0on.converter",
     "productName": "M0ON Converter",
+    "compression": "maximum",
+    "electronLanguages": ["ru", "en-US"],
     "directories": {
       "output": "dist"
     },
     "files": [
-      "**/*",
-      "!node_modules/**/*",
-      "!dist/**/*"
-    ],
-    "asarUnpack": [
-      "converter.py"
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "index.html",
+      "style.css",
+      "converter.js",
+      "convert-worker.js",
+      "m0on_industries.png",
+      "package.json"
     ],
     "win": {
       "target": "nsis",
@@ -28,7 +37,8 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "createStartMenuShortcut": true,
+      "language": "1049"
     }
   },
   "devDependencies": {

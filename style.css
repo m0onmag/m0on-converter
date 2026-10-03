@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
-
 :root {
+    --font-display: 'Bahnschrift', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+    --font-mono:    'Cascadia Mono', 'Cascadia Code', Consolas, 'Courier New', monospace;
     --gold:       #c9a84c;
     --gold-b:     #f0c040;
     --gold-dim:   rgba(201,168,76,0.15);
@@ -24,7 +24,7 @@
 body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Share Tech Mono', monospace;
+    font-family: var(--font-mono);
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -43,13 +43,14 @@ body {
     position:fixed; top:0; right:0; z-index:10000;
     display:flex; gap:8px; padding:12px;
     -webkit-app-region:no-drag;
-    opacity:0; transition:opacity 0.5s ease;
+    opacity:0; visibility:hidden; transition:opacity 0.5s ease;
 }
 
 .window-btn {
     width:32px; height:32px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
     cursor:pointer; transition:all 0.2s ease;
+    font-family:inherit;
     -webkit-app-region:no-drag;
     pointer-events: auto;
 }
@@ -88,7 +89,7 @@ body {
 }
 
 .window-controls.visible {
-    opacity:1;
+    opacity:1; visibility:visible;
 }
 
 .boot-screen {
@@ -212,8 +213,8 @@ body {
 }
 
 @keyframes core-pulse {
-    0%,100% { box-shadow: 0 0 16px var(--blue), 0 0 40px rgba(26,159,255,.5), 0 0 80px rgba(26,159,255,.2), inset 0 0 12px rgba(255,255,255,.3); }
-    50%      { box-shadow: 0 0 24px var(--blue), 0 0 60px rgba(26,159,255,.7), 0 0 100px rgba(26,159,255,.3), inset 0 0 16px rgba(255,255,255,.5); }
+    0%,100% { transform: scale(1); }
+    50%      { transform: scale(1.08); }
 }
 
 .boot-logo-wrap {
@@ -223,7 +224,7 @@ body {
 }
 
 .boot-logo {
-    font-family: 'Orbitron', sans-serif;
+    font-family: var(--font-display);
     font-weight: 900;
     font-size: 52px;
     letter-spacing: 14px;
@@ -233,7 +234,7 @@ body {
 }
 
 .boot-logo-sub {
-    font-family: 'Orbitron', sans-serif;
+    font-family: var(--font-display);
     font-size: 11px; letter-spacing: 10px;
     color: var(--text-dim);
 }
@@ -270,6 +271,7 @@ body {
 .main-ui {
     position: fixed; inset: 0;
     display: flex; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none;
     transition: opacity 0.6s ease;
 }
 
@@ -316,7 +318,7 @@ body {
 
 @keyframes dline {
     0%,100% { opacity:.3; }
-    50%      { opacity:1; box-shadow: 0 0 4px var(--gold); }
+    50%      { opacity:1; }
 }
 
 .deco-dot {
@@ -342,7 +344,7 @@ header::after {
 }
 
 .logo-main {
-    font-family: 'Orbitron', sans-serif;
+    font-family: var(--font-display);
     font-weight: 900; font-size: 24px; letter-spacing: 6px;
     background: linear-gradient(135deg, var(--gold-b) 0%, var(--gold) 55%, #8a6820 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -355,7 +357,6 @@ header::after {
 .panel {
     position: relative; margin-top: 22px;
     background: var(--panel);
-    backdrop-filter: blur(18px);
     border: 1px solid var(--border);
     padding: 32px 32px 28px;
     display: flex; flex-direction: column; gap: 22px;
@@ -388,7 +389,7 @@ header::after {
     background: rgba(26,159,255,.04);
     border: 1px solid rgba(26,159,255,.22);
     border-left: 3px solid var(--blue);
-    color: var(--text); font-family:'Share Tech Mono',monospace; font-size:12px;
+    color: var(--text); font-family:var(--font-mono); font-size:12px;
     padding: 11px 14px; outline:none;
     clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
     cursor: default;
@@ -398,7 +399,7 @@ header::after {
 .hud-input::placeholder { color:var(--text-dim); font-size:11px; }
 
 .btn {
-    font-family:'Orbitron',sans-serif; font-size:10px; letter-spacing:2px;
+    font-family:var(--font-display); font-size:10px; letter-spacing:2px;
     cursor:pointer; border:none; outline:none; text-transform:uppercase;
     transition: all .22s; position:relative;
 }
@@ -446,8 +447,8 @@ header::after {
     background:white; box-shadow:0 0 6px white;
 }
 @keyframes arc {
-    0%,100% { box-shadow:0 0 6px rgba(255,255,255,.3); }
-    50%      { box-shadow:0 0 14px rgba(255,180,180,.5); }
+    0%,100% { opacity:.6; }
+    50%      { opacity:1; }
 }
 
 .status-area {
@@ -467,6 +468,7 @@ header::after {
 .status-icon { font-size:16px; }
 
 .progress-bar-wrap {
+    display:none;
     width:100%; height:3px;
     background:rgba(255,255,255,.07); border-radius:2px; overflow:hidden;
 }
@@ -478,7 +480,7 @@ header::after {
 }
 
 .result-box {
-    display:flex; flex-direction:column; align-items:center; gap:8px;
+    display:none; flex-direction:column; align-items:center; gap:8px;
     padding:20px; border:1px solid rgba(0,229,160,.2);
     background:rgba(0,229,160,.04);
     animation: fadein .4s ease-out;
@@ -489,9 +491,9 @@ header::after {
 
 .result-icon  { font-size:28px; color:var(--success); }
 .result-box.error .result-icon { color:var(--error); }
-.result-text  { font-family:'Orbitron',sans-serif; font-size:11px; letter-spacing:2px; color:var(--success); }
+.result-text  { font-family:var(--font-display); font-size:11px; letter-spacing:2px; color:var(--success); }
 .result-box.error .result-text { color:var(--error); }
-.result-path  { font-size:10px; color:var(--text-dim); text-align:center; word-break:break-all; }
+.result-path  { font-size:10px; color:var(--text-dim); text-align:center; word-break:break-all; white-space:pre-line; }
 
 footer {
     display:flex; justify-content:center; align-items:center;
@@ -499,3 +501,24 @@ footer {
     border-top:1px solid rgba(201,168,76,.1);
 }
 .footer-txt { font-size:9px; letter-spacing:2px; color:var(--text-dim); }
+
+/* Путь и ошибки можно выделять и копировать */
+.hud-input, .result-text, .result-path {
+    user-select: text;
+    -webkit-app-region: no-drag;
+}
+
+/* Видимый фокус для клавиатуры */
+.btn:focus-visible, .window-btn:focus-visible, .hud-input:focus-visible {
+    outline: 2px solid var(--gold-b);
+    outline-offset: 2px;
+}
+
+/* Уважаем системную настройку «уменьшить анимацию» */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
