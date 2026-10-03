@@ -502,19 +502,16 @@ footer {
 }
 .footer-txt { font-size:9px; letter-spacing:2px; color:var(--text-dim); }
 
-/* Путь и ошибки можно выделять и копировать */
 .hud-input, .result-text, .result-path {
     user-select: text;
     -webkit-app-region: no-drag;
 }
 
-/* Видимый фокус для клавиатуры */
 .btn:focus-visible, .window-btn:focus-visible, .hud-input:focus-visible {
     outline: 2px solid var(--gold-b);
     outline-offset: 2px;
 }
 
-/* Уважаем системную настройку «уменьшить анимацию» */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;

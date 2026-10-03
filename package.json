@@ -34,6 +34,7 @@
       "icon": "m0on_industries.png"
     },
     "nsis": {
+      "artifactName": "${productName} Setup.${ext}",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
